@@ -73,8 +73,6 @@ def search_content(content_type, mood, streaming_services):
             ia.update(content, 'keywords') # only works for movies :(
         found = False
         for cnt, keyword in enumerate(content["keywords"]):
-            if cnt == 100:
-                break
             if found:
                 break
             for x in mood:
