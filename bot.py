@@ -30,7 +30,7 @@ def extract_mood(message):
     keywords = []
     for token in doc:
         if token.pos_ in ["NOUN", "ADJ", "VERB"] and not token.is_stop:
-            keywords.append(token.lemma_)
+            keywords.append(token.lemma_.lower())
     return keywords
 
 # Define function to search for movies or TV series based on mood and streaming service availability
@@ -102,7 +102,7 @@ def search_content(content_type, mood, streaming_services):
             #             available_content.append(content)
             #             break
             #     break
-            if result['object_type'] == content_dict[content_type] and result['title'].lower() == content['title'].lower() and result['offers'] and result['original_release_year'] >= made_after:
+            if result['object_type'] == content_dict[content_type] and result['title'].lower() == content['title'].lower() and result['offers'] and int(result['original_release_year']) >= int(made_after):
                 if any_svc:
                     available_content.append(content)
                     break
