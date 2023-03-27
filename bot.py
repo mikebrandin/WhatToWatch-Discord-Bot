@@ -29,7 +29,7 @@ def extract_mood(message):
     doc = nlp(message)
     keywords = []
     for token in doc:
-        if token.pos_ in ["NOUN", "ADJ", "VERB"] and not token.is_stop:
+        if token.pos_ in ["NOUN", "ADJ", "VERB"] and not token.is_stop and token.lemma_.lower() != "movie" and token.lemma_.lower() != "film":
             keywords.append(token.lemma_.lower())
     return keywords
 
@@ -72,7 +72,9 @@ def search_content(content_type, mood, streaming_services):
         if 'keywords' not in content:
             ia.update(content, 'keywords') # only works for movies :(
         found = False
-        for keyword in content["keywords"]:
+        for cnt, keyword in enumerate(content["keywords"]):
+            if cnt == 100:
+                break
             if found:
                 break
             for x in mood:

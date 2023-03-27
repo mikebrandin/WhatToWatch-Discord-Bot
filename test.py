@@ -30,43 +30,47 @@ def extract_mood(message):
             keywords.append(token.lemma_)
     return list(keywords)
 
-# Define function to search for movies  based on mood and streaming service availability
+# Define function to search for movies or TV series based on mood and streaming service availability
 def search_content(content_type, mood, streaming_services):
     # Retrieve top 250 movies or TV series from IMDbPY
     global made_after
+    global how_many
     top_content = []
 
     if content_type == 'movie':
         top_content = ia.get_top250_movies()
-    elif content_type == 'tv':
-        top_content = ia.get_top250_tv()
+    #elif content_type == 'tv':
+    #    top_content = ia.get_top250_tv()
+    #elif content_type == 'either':
+    #    top_content.append(ia.get_top250_movies())
+    #    top_content.append(ia.get_top250_tv())
     else:
         return 
-    print(top_content)
-
+    
     content_dict = {"movie": "movie", "tv": "show"}
-
     streaming_services_dict = {"netflix": "nfx", 
-                               "hulu": "hlu", 
-                               "hbomax": "hbm", 
-                               "amazonprime": "amp", 
-                               "disneyplus": "dnp", 
-                               "appletvplus": "atp", 
-                               "peacocktv": "pct", 
-                               "paramountplus": "pmp", 
-                               }
+                            "hulu": "hlu", 
+                            "hbomax": "hbm", 
+                            "amazonprime": "amp", 
+                            "disneyplus": "dnp", 
+                            "appletvplus": "atp", 
+                            "peacocktv": "pct", 
+                            "paramountplus": "pmp", 
+                            }
     short_stream_names = []
-    for x in streaming_services:
-        short_stream_names.append(streaming_services_dict[x])
+    if not any_svc:
+        for x in streaming_services:
+            short_stream_names.append(streaming_services_dict[x])
 
     # Filter content based on mood
     filtered_content = []
     found = False
     for content in top_content:
         if 'keywords' not in content:
-            ia.update(content, 'keywords')
+            ia.update(content, 'keywords') # only works for movies :(
         found = False
         for keyword in content["keywords"]:
+            print(content, keyword)
             if found:
                 break
             for x in mood:
