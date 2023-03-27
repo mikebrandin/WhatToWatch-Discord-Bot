@@ -258,7 +258,7 @@ async def howmany(ctx, val):
 async def helpme(ctx):
     message = f'''
         WhatToWatch is a Discord Bot created to help you and your friends find great movies to watch on the streaming services you already have!
-It uses sentiment analysis and keyword matching to take in an input sentence and find movies with similar vibes to your 
+It uses sentiment analysis and keyword matching to take in an input sentence and find movies with similar vibes to you. Whether that be your current mood, favorite movie genre, or anything you can think of! 
 
     !wtw - is the main command. Reply with a sentence to descibe your mood or what your interested in watching and WhatToWatch will send you list a top rated movies.
 
