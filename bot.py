@@ -86,8 +86,11 @@ def search_content(content_type, mood, streaming_services):
     # Filter content based on streaming service availability using JustWatch API
     available_content = []
     counter = 0
+
     for content in filtered_content:
         counter = 0
+        if len(available_content) == how_many:
+            break
         results = justwatch_api.search_for_item(query=content['title'])
         for result in results['items']:
             if 'object_type' not in result:
